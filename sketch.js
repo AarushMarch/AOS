@@ -11,6 +11,7 @@ var touchGround =0;
 var caveSprite;
 var level = 0;
 var knightImgFL;
+var jumpC = 0;
 
 function preload()
 {
@@ -73,11 +74,12 @@ function draw() {
       knight.x +=3;
     }
     console.log(knight.y);
-    if(keyIsDown(UP_ARROW) && knight.y >=580){
-      knight.velocityY = -10;
+    if(keyIsDown(UP_ARROW) && jumpC === 0){
+      //knight.velocityY = -10;
+      jump();
     }
           
-    knight.velocityY += 0.08;
+    //knight.velocityY += 0.08;
 
     if(knight.isTouching(caveSprite) && score=== 0 && level === 0){
       level ++;
@@ -102,6 +104,18 @@ function startLevel(level){
       knight.x = 110;
       ground.y -=55
   }
+}
+
+function jump(){
+  jumpC = 1;
+  for(var i = 0;i<20;i++){
+    knight.y += i;
+  }
+  for(var k = 0;k<20;k++){
+    knight.y -=i
+  }
+  jumpC = 0;
+
 }
 
 /*
