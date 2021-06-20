@@ -76,7 +76,7 @@ function draw() {
         knight.x-=3
       }
       else if(level === 1){
-      backgroundSprite.y -=3;
+      backgroundSprite.x -=3;
       } 
       knight.changeImage("knightFL", knightImgFL);
     }
