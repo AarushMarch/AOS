@@ -12,6 +12,7 @@ var caveSprite;
 var level = 0;
 var knightImgFL;
 var jumpC = 0;
+var backgroundSprite;
 
 function preload()
 {
@@ -40,6 +41,10 @@ function setup() {
 
   ground = createSprite(width/2, height-15, 900, 10);
   ground.visible = false;
+
+  backgroundSprite = createSprite(800/2, 700/2, 1600, 700);
+  backgroundSprite.addImage(caveImg);
+  backgroundSprite.visible = false;
 	
   
 }
@@ -49,7 +54,7 @@ function draw() {
   if (level === 0)
     background(caveEntranceImg);
     else if (level === 1)
-      background(caveImg);
+      backgroundSprite.visible = true;
 
   textSize(35)
   fill("black")
@@ -67,11 +72,22 @@ function draw() {
   if(gameState === PLAY){
     knight.visible = true
     if(keyIsDown(LEFT_ARROW)){
-      knight.x -=3;
+      if(level ===0){
+        knight.x-=3
+      }
+      else if(level === 1){
+      backgroundSprite.y -=3;
+      } 
       knight.changeImage("knightFL", knightImgFL);
     }
     if(keyIsDown(RIGHT_ARROW)){
-      knight.x +=3;
+      if(level ===0){
+        knight.x+=3
+      }
+      else if(level === 1){
+      backgroundSprite.y +=3;
+      } 
+      knight.changeImage("knightFL", knightImg);
     }
     console.log(knight.y);
     if(keyIsDown(UP_ARROW) && jumpC === 0){
@@ -108,13 +124,12 @@ function startLevel(level){
 
 function jump(){
   jumpC = 1;
-  for(var i = 0;i<20;i++){
-    knight.y += i;
-  }
+  knight.y = 10
   for(var k = 0;k<20;k++){
-    knight.y -=i
+    knight.y +=k
   }
-  jumpC = 0;
+  jumpC = 0
+  
 
 }
 
